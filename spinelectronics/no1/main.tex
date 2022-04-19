@@ -1,0 +1,60 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{スピンエレクトロニクス No.1}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+静電エネルギーと静止質量エネルギーが等しいことから
+\begin{align}
+  m_ec^2&=\frac{1}{2}\frac{e^2}{4\pi\varepsilon_0}\frac{1}{a}\nonumber\\
+  \therefore\ a&=\frac{e^2}{8\pi\varepsilon_0m_ec^2}
+\end{align}
+また電子スピンの角運動量は
+\begin{align}
+  \frac{2}{5}m_ea^2\omega&=\frac{\hbar}{2}\nonumber\\
+  \therefore\ v=a\omega&=\frac{5\hbar}{4m_ea}
+\end{align}
+(2)に(1)を代入すると
+\begin{align*}
+  v&=\frac{5\hbar}{4m_e}\frac{8\pi\varepsilon_0m_ec^2}{e^2}\\
+  &=\frac{10\hbar\pi\varepsilon_0c}{e^2}\times c\simeq 341c
+\end{align*}
+となり,スピン角運動量が電子の自転に由来しているとすると,その表面速度は光速を超えることがわかる.
+\end{document}
