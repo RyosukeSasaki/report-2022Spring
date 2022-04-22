@@ -1,0 +1,67 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 レポート1}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+$E_\mu$, $E_{\nu_\mu}$を$\mu$, $\nu_\mu$の全エネルギーとすれば
+\begin{align}
+  m_\pi^2=(E_\mu+E_{\nu_\mu})^2-|\vec{p}_\mu+\vec{p}_{\nu_\mu}|
+\end{align}
+ここで$\pi$粒子は静止していたので$\vec{p}_\mu+\vec{p}_{\nu_\mu}=0$より
+\begin{align}
+  \begin{split}
+    m_\pi^2&=(E_\mu+E_{\nu_\mu})^2\\
+    &=\left(\sqrt{m_\mu^2+p_\mu^2}+\sqrt{m_{\nu_\mu}^2+p_{\nu_\mu}^2}\right)^2\
+  \end{split}
+\end{align}
+ここで$|\vec{p}_{\mu}|=|\vec{p}_{\nu_\mu}|$より
+\begin{align}
+  \begin{split}
+    m_\pi^2&=m_\mu^2+2p_\mu^2+2\sqrt{\left(m_\mu^2+p_\mu^2\right)p_\mu^2}\\
+    m_\pi^2-m_\mu^2-2p_\mu^2&=2\sqrt{\left(m_\mu^2+p_\mu^2\right)p_\mu^2}\\
+    4182\ \si{\mega\electronvolt^2}-p_\mu^2&=\sqrt{(106^2\ \si{\mega\electronvolt^2}+p_\mu^2)p_\mu^2}\\
+    \left(4182\ \si{\mega\electronvolt^2}-p_\mu^2\right)^2&=(106^2\ \si{\mega\electronvolt^2}+p_\mu^2)p_\mu^2\\
+    0&=4182^2\ \si{\mega\electronvolt^4}-(2\cdot4182+106^2)\ \si{\mega\electronvolt^2}\cdot p_\mu^2\\
+    p_\mu&=\pm 29.8\ \si{\mega\electronvolt}
+  \end{split}
+\end{align}
+となる.
+\end{document}
