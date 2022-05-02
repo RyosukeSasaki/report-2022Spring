@@ -1,0 +1,76 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 宿題2}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsubsection*{水の質量}
+寿命が$10^{33}\ {\rm years}$の陽子の崩壊を平均$1\ 回/{\rm year}$の頻度で観測するには
+$10^{33}$個の陽子を用意する必要がある.
+1個の水分子には2個のFree Protonが含まれるので,必要な水分子の数は$10^{33}/2$個である.
+この水の質量は
+\begin{align}
+  \frac{10^{33}}{2}\times\frac{18.0\ \si{\gram.\mole^{-1}}}{N_A\ \si{\mole^{-1}}}\times\frac{1}{10^6}=1.49\times10^4\ \si{\tonne}
+\end{align}
+となる.またその体積は
+\begin{align}
+  1.49\times10^4\ \si{\metre^3}
+\end{align}
+となる.
+\subsubsection*{PMTの本数}
+ここでは前問で求めた量の水を球状のタンクに収めるとする.この球状タンクの半径$r$は
+\begin{align}
+  \frac{4}{3}\pi r^3&=1.49\times 10^4\nonumber\\
+  r&=15.3\ \si{\metre}
+\end{align}
+その表面積は
+\begin{align}
+  4\pi r^2=2.93\times 10^3\ \si{\metre^2}
+\end{align}
+また直径$50\ \si{\centi\metre}$のPMTの断面積は
+\begin{align}
+  \pi\times0.25^2=0.196\ \si{\metre^2}
+\end{align}
+なので,光被覆率を$10\%$とするには
+\begin{align}
+  \frac{2.93\times 10^3}{0.196}=1.49\times10^4\ 個
+\end{align}
+のPMTが必要になる.
+\end{document}
