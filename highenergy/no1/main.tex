@@ -1,0 +1,73 @@
+\documentclass[leqno,uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{高エネルギー物理学 課題1}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+Bhabha散乱のFeynman図は図\ref{fig:fig/feynman.png}の2種類である.
+(a)について,運動量保存$q=p_1-p_3=p_4-p_2$をもちいて
+\begin{align*}
+  (2\pi)^4\delta(p_1-p_3-q)=(2\pi)^4\delta(q+p_2-p_4)=(2\pi)^4\delta(p_1-p_3+p_2-p_4)
+\end{align*}
+と表される.したがって対応する式は
+\begin{align*}
+  \int\frac{d^4q}{(2\pi)^4}\overline{u}(p_3)ie\gamma^\mu u(p_1)(2\pi)^4&\delta(p_1-p_3-q)\frac{-i\eta_{\mu\nu}}{q^2}\overline{v}(p_2)ie\gamma^\nu v(p_4)\\
+  =&\ \overline{u}(p_3)ie\gamma^\mu u(p_1)\frac{-i\eta_{\mu\nu}}{(p_1-p_3)^2}\overline{v}(p_2)ie\gamma^\nu v(p_4)
+\end{align*}
+となる.次に(b)について,運動量保存$q=p_1-p_2=p_4-p_3$をもちいて
+\begin{align*}
+  (2\pi)^4\delta(p_1-p_2-q)=(2\pi)^4\delta(q+p_3-p_4)=(2\pi)^4\delta(p_1-p_2+p_3-p_4)
+\end{align*}
+と表される.したがって対応する式は
+\begin{align*}
+  -\int\frac{d^4q}{(2\pi)^4}\overline{v}(p_2)ie\gamma^\mu u(p_1)(2\pi)^4&\delta(p_1-p_2-q)\frac{-i\eta_{\mu\nu}}{q^2}\overline{u}(p_3)ie\gamma^\nu v(p_4)\\
+  =&\ \overline{v}(p_2)ie\gamma^\mu u(p_1)\frac{i\eta_{\mu\nu}}{(p_1-p_2)^2}\overline{u}(p_3)ie\gamma^\nu v(p_4)\\
+\end{align*}
+ここで上の式は(a)の場合に対して$p_2\leftrightarrow p_3$と交換しているので,
+fermionの反交換関係から$-$符号をつけた.
+したがって不変散乱振幅は
+\begin{align*}
+  i\mathcal{M}=&\overline{u}(p_3)ie\gamma^\mu u(p_1)\frac{-i\eta_{\mu\nu}}{(p_1-p_3)^2}\overline{v}(p_2)ie\gamma^\nu v(p_4)\\
+  &\ +\overline{v}(p_2)ie\gamma^\mu u(p_1)\frac{i\eta_{\mu\nu}}{(p_1-p_2)^2}\overline{u}(p_3)ie\gamma^\nu v(p_4)
+\end{align*}
+となる.
+\mfig[width=12cm]{fig/feynman.png}{Bhabha散乱のFeynman図}
+\bibliography{ref.bib}
+\end{document}
