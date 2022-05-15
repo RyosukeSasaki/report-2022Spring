@@ -1,0 +1,187 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{スピンエレクトロニクス No.2}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{立方晶系の磁歪エネルギー}
+\subsubsection*{$[100]$方向で観察した場合}
+このとき${\bm \alpha}={\bm \beta}=(1,0,0)$なので
+\begin{align*}
+  \lambda&=\frac{3}{2}\lambda_{100}\left(1+0+0-\frac{1}{3}\right)+3\lambda_{111}\left(0+0+0\right)\\
+  &=\lambda_{100}
+\end{align*}
+となる.
+\subsubsection*{$[010]$方向で観察した場合}
+このとき${\bm \alpha}=(1,0,0)$, ${\bm \beta}=(0,1,0)$なので
+\begin{align*}
+  \lambda&=\frac{3}{2}\lambda_{100}\left(0+0+0-\frac{1}{3}\right)+3\lambda_{111}\left(0+0+0\right)\\
+  &=-\frac{1}{2}\lambda_{100}
+\end{align*}
+となる.
+\subsection*{Neel磁壁の計算}
+磁壁の幅$D$は交換エネルギー$E_{ex}$,磁気異方性エネルギー$E_k$,静磁エネルギー$E_d$の和を最小にするように定まる.
+\subsubsection*{交換エネルギー}
+交換エネルギーは最近接スピン同士の交換エネルギーの和なので,最近接原子数を$z$,単位格子内の原子数を$n$とすれば単位体積あたりの交換エネルギーは
+\begin{align*}
+  e_{ex}=\frac{1}{2}\frac{1}{a^3}\sum_j^n\sum_i^z(-2J{\bm S}_i\cdot{\bm S}_j)=\frac{1}{2}\frac{1}{a^3}\sum_i^n\sum_j^z(-2JS^2\cos\theta_{ij})
+\end{align*}
+ここで$\theta_{ij}$が十分小さければ$E_{ex}$は定数項を除いて
+\begin{align*}
+  e_{ex}=-\frac{JS^2}{a^3}\sum_{(i,j)}\left(1-\frac{1}{2}\theta_{ij}^2\right)\simeq\frac{1}{2}\frac{JS^2}{a^3}\sum_{(i,j)}\theta_{ij}^2
+\end{align*}
+隣り合う原子同士でスピンが等角度に回転するならば
+\begin{align*}
+  \theta_{ij}=a\frac{\pi}{D}
+\end{align*}
+ここで単純立方格子を仮定すると$n=1$,またスピンの回転方向がある結晶軸と平行だとすると,最近接格子数は6だが$\theta_{ij}\neq 0$なる原子は2つのみになるので
+\begin{align*}
+  e_{ex}=\frac{1}{2}\frac{JS^2}{a^3}\left(a\frac{\pi}{D}\right)^2\times1\times2=\frac{JS^2}{a}\left(\frac{\pi}{D}\right)^2
+\end{align*}
+したがって磁壁全体での交換エネルギーは
+\begin{align}
+  E_{ex}=\int_0^D\frac{JS^2}{a}\left(\frac{\pi}{D}\right)^2dx=A\left(\frac{\pi}{D}\right)^2D
+\end{align}
+となる.ただし$A=JS^2/a$は交換Stiffness定数である.
+\subsubsection*{磁気異方性エネルギー}
+一軸磁気異方性のもとで磁気異方性エネルギーは
+\begin{align*}
+  e_k=K_u\sin^2\theta
+\end{align*}
+で表されるので
+\begin{align*}
+  E_k&=\int_0^DK_u\sin^2\theta dx\\
+\end{align*}
+$\theta=\pi x/D$より$x=D\theta/\pi$とすれば
+\begin{align}
+  \begin{split}
+    E_k&=K_u\int_0^\pi\sin^2\theta d\theta\times\frac{D}{\pi}\\
+    &=\frac{K_u}{2\pi}D\int_0^\pi(1-\cos2\theta)d\theta\\
+    &=\frac{K_u}{2}D
+  \end{split}
+\end{align}
+となる.
+\subsubsection*{静磁エネルギー}
+Neel時癖は図1のように磁壁の接線方向に回転することから,正味では磁壁の法線方向に磁化を持つ.
+その単位体積あたりの静磁エネルギーは面内方向の反磁場$H_{d,\parallel}$と面内方向の磁化の実効値$M_{\parallel}$を用いて
+\begin{align*}
+  e_d=\frac{1}{2}H_{d,\parallel}M_{\parallel}
+\end{align*}
+ここで図2のように楕円柱として磁壁を近似すれば反磁場係数は
+\begin{align*}
+  N_{\parallel}=\frac{T}{D+T}
+\end{align*}
+となるため
+\begin{align*}
+  H_{d,\parallel}=\frac{T}{D+T}\frac{M_{\parallel}}{\mu_0}
+\end{align*}
+したがって
+\begin{align}
+  E_d=\int_0^D\frac{T}{D+T}\frac{1}{2}\frac{M_\parallel^2}{\mu_0}dx=\frac{1}{2}\frac{T}{D+T}\frac{M_\parallel^2}{\mu_0}D
+\end{align}
+となる.一方で磁化の面内成分は$M_\parallel=M_s\sin\theta$なので,
+$D\ll T$のもとで$N_\parallel\simeq1$とすれば
+\begin{align}
+  \begin{split}
+    E_d&=\int_0^D\frac{1}{2\mu_0}\left(M_S\sin\theta\right)^2dx\\
+    &=\frac{M_S^2}{2\mu_0}\int_0^D\sin^2\theta dx\\
+    &=\frac{M_S^2}{2\mu_0}\frac{D}{2}
+  \end{split}
+\end{align}
+ここで(3)と(4)が$D\ll T$で一致すべきなので
+\begin{align*}
+  M_\parallel=\frac{M_S}{\sqrt{2}}
+\end{align*}
+であり
+\begin{align*}
+  E_d=\frac{1}{4}\frac{T}{D+T}\frac{M_S^2}{\mu_0}D
+\end{align*}
+を得る.以上からNeel磁壁のエネルギー$E_N$は
+\begin{align*}
+  E_N=A\left(\frac{\pi}{D}\right)^2D+\frac{K_u}{2}D+\frac{1}{4}\frac{T}{D+T}\frac{M_S^2}{\mu_0}D
+\end{align*}
+となる.
+\subsubsection*{$D$の見積もり}
+\begin{align*}
+  E_N&=A\left(\frac{\pi}{D}\right)^2D+\frac{K_u}{2}D+\frac{1}{4}\frac{T}{D+T}\frac{M_S^2}{\mu_0}D\\
+  &\simeq \left(\frac{1}{4}\frac{T}{D+T}\frac{M_S^2}{\mu_0}+\frac{K_u}{2}\right)D+A\pi^2\frac{1}{D}\\
+  &=:aD+\frac{b}{D}
+\end{align*}
+とする.この極値は$D>0$から
+\begin{align*}
+  \frac{d E_N}{d N}=a-\frac{b}{D^2}&=0\\
+  D&=\sqrt{\frac{b}{a}}
+\end{align*}
+である.また極値において
+\begin{align*}
+  \left.\frac{d^2E_N}{dN^2}\right|_{D=\sqrt{b/a}}=2\frac{b}{(b/a)^{3/2}}>0
+\end{align*}
+であり,最小値となっている.したがって$T\gg D$かつ$K_u\ll M_S^2/2\mu_0$のとき
+\begin{align*}
+  a\simeq \frac{1}{4}\frac{M_S^2}{\mu_0}
+\end{align*}
+なので
+\begin{align}
+  D=\sqrt{A\pi^2\cdot\frac{4\mu_0}{M_S^2}}=\frac{2\pi}{M_S}\sqrt{A\mu_0}
+\end{align}
+\begin{align}
+  E_N=\frac{1}{4}\frac{M_S^2}{\mu_0}\frac{2\pi}{M_S}\sqrt{A\mu_0}+A\pi^2\frac{M_S}{2\pi\sqrt{A\mu_0}}=\pi M_S\sqrt{\frac{A}{\mu_0}}
+\end{align}
+となる.また$D\gg T$のとき
+\begin{align*}
+  a\simeq\frac{K_u}{2}
+\end{align*}
+なので
+\begin{align}
+  D=\sqrt{\frac{2}{K_u}\cdot A\pi^2}=\pi\sqrt{\frac{2A}{K_u}}
+\end{align}
+\begin{align}
+  E_N=\frac{K_u}{2}\pi\sqrt{\frac{2A}{K_u}}+A\pi^2\frac{1}{\pi}\sqrt{\frac{K_u}{2A}}=\pi\sqrt{2AK_u}
+\end{align}
+となる.
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \mfig[width=5cm]{fig/fig1.png}{Neel磁壁の断面図(授業スライドから)}
+  \end{minipage}
+  \begin{minipage}[b]{0.5\linewidth}
+    \mfig[width=5cm]{fig/fig2.png}{楕円柱による模式図(授業スライドから)}
+  \end{minipage}
+\end{figure}
+\end{document}
