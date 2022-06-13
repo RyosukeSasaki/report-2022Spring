@@ -1,0 +1,122 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}{
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 宿題3}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{(1)}
+ガスチェレンコフカウンタで$10\ \si{\giga\electronvolt}$の$\pi^\pm$と$K^\pm$を識別するには図\ref{fig:fig/fig1.jpg}の
+青線の範囲に$1/n$を収めれば$\pi^\pm$のみがチェレンコフ放射を起こすため識別できる.
+ここで$10\ \si{\giga\electronvolt}$における$\pi^\pm$と$K^\pm$の$\beta$はそれぞれ
+\begin{align*}
+  \beta_{\pi^\pm}=\frac{p}{\sqrt{m^2+p^2}}=\frac{10}{\sqrt{0.14^2+10^2}}\frac{\si{\giga\electronvolt}}{\si{\giga\electronvolt}}\simeq 0.99990
+\end{align*}
+\begin{align*}
+  \beta_{k^\pm}=\frac{10}{\sqrt{0.5^2+10^2}}\simeq0.99875
+\end{align*}
+なので
+\begin{align*}
+  0.99875<\frac{1}{n}\leq 0.99990\\
+\end{align*}
+\begin{align*}
+  \therefore 1.00009\leq n <1.00125
+\end{align*}
+となる.ここで空気の屈折率は
+\begin{align*}
+  n=1+0.000273\frac{p}{\rm atm}
+\end{align*}
+で与えられるため
+\begin{align*}
+  0.358957\leq p\ /\ \si{atm}<4.5787
+\end{align*}
+の圧力範囲の空気を充填することで$\pi^\pm$と$K^\pm$を識別できる.
+\mfig[width=8cm]{fig/fig1.jpg}{$1/n$の範囲}
+\subsection*{(2)}
+$1\ \si{GeV}$における$\pi^\pm$と$K^\pm$の$\beta$は
+\begin{align*}
+  \beta_{\pi^\pm}=\frac{1}{\sqrt{0.14^2+1^2}}\simeq0.990341
+\end{align*}
+\begin{align*}
+  \beta_{k^\pm}=\frac{1}{\sqrt{0.5^2+1^2}}\simeq0.894427
+\end{align*}
+なのでSi単位系での速度は
+\begin{align*}
+  v_{\pi^\pm}=\beta_{\pi^\pm} c\simeq2.99896\times10^8\ \si{\metre.\second^{-1}}
+\end{align*}
+\begin{align*}
+  v_{k^\pm}=\simeq2.68142\times10^8\ \si{\metre.\second^{-1}}
+\end{align*}
+したがって$1\ \si{\metre}$の検出器を通過するのに要する時間$t_{\pi^\pm}$, $t_{k^\pm}$はそれぞれ
+\begin{align*}
+  \Delta t_{\pi^\pm}=\frac{1}{v_{\pi^\pm}}\simeq3.36817\ \si{\nano\second}
+\end{align*}
+\begin{align*}
+  \Delta t_{k^\pm}\simeq3.72936\ \si{\nano\second}
+\end{align*}
+であり
+\begin{align*}
+  |t_{\pi^\pm}-t_{k\pm}|\simeq361.188\ \si{\pico\second}
+\end{align*}
+となる.検出器の時間測定精度が$\sigma_t=50\ \si{\pico\second}$であることから,
+始点と終点での2回の測定で最悪$100\ \si{\pico\second}$の誤差が入ったとしても
+$1\ \si{GeV}$の$\pi^\pm$と$K^\pm$を識別できる.
+
+次に$10\ \si{GeV}$の場合,前問の結果を用いれば
+\begin{align*}
+  v_{\pi^\pm}\simeq2.99763\times10^8\ \si{\metre.\second^{-1}}
+\end{align*}
+\begin{align*}
+  v_{k^\pm}\simeq2.99418\times10^8\ \si{\metre.\second^{-1}}
+\end{align*}
+より
+\begin{align*}
+  \Delta t_{\pi^\pm}\simeq3.33596\ \si{\nano\second}
+\end{align*}
+\begin{align*}
+  \Delta t_{k^\pm}\simeq3.33980\ \si{\nano\second}
+\end{align*}
+したがって
+\begin{align*}
+  |t_{\pi^\pm}-t_{k\pm}|\simeq3.84007\ \si{\pico\second}
+\end{align*}
+となる.検出器の時間測定精度が$\sigma_t=50\ \si{\pico\second}$であることから,この検出器では
+$10\ \si{GeV}$の$\pi^\pm$と$K^\pm$を識別できない.
+\bibliography{ref.bib}
+\end{document}
