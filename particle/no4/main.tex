@@ -1,0 +1,58 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 宿題4}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+粒子はMWPCに対して一様な分布で入射するものとする.
+すなわち位置$x\in[-d/2,d/2]$に粒子が入射する確率は一様に$1/d$とする.
+このとき位置の分散$\sigma_x^2$は
+\begin{align*}
+  \sigma_x^2=\langle x^2\rangle-\langle x\rangle^2&=\int_{-d/2}^{d/2}\frac{1}{d}x^2dx-\left(\int_{-d/2}^{d/2}\frac{1}{d}xdx\right)^2\\
+  &=\left[\frac{1}{d}\frac{x^3}{3}\right]_{-d/2}^{d/2}-0\\
+  &=\frac{d^2}{12}
+\end{align*}
+したがって標準偏差$\sigma_x$は
+\begin{align*}
+  \sigma_x=\frac{d}{\sqrt{12}}
+\end{align*}
+となる.
+\bibliography{ref.bib}
+\end{document}
