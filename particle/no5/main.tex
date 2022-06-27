@@ -1,0 +1,69 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 宿題5}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+人間の密度を$1\ \si{\gram.\centi\metre^{-3}}$とする.
+中性子の質量が$1.674\times10^{-24}\ \si{\gram}$,
+陽子の質量が$1.672\times10^{-24}\ \si{\gram}$
+であり人間には中性子と陽子が同数が含まれるとすると,
+核子の質量は平均して$1.673\times10^{-24}\ \si{\gram}$となる.\cite{n:online}\cite{p:online}
+電子の質量を無視すれば人間の$1\ \si{\centi\metre^3}$に含まれる核子の数は
+\begin{align*}
+  \frac{1}{1.673\times10^{-24}}\simeq5.977\times10^{23}\ \si{\centi\metre^{-3}}
+\end{align*}
+である.
+$10\ \si{\giga\electronvolt}$のニュートリノと核子の散乱の断面積は$\sigma\sim10^{-37}\ \si{\centi\metre^2}$なので
+人間中でのニュートリノの平均自由工程$l$は
+\begin{align*}
+  l=\frac{1}{5.977\times10^{23}\ \si{\centi\metre^{-3}}\times10^{-37}\ \si{\centi\metre^2}}\simeq1.673\times10^{13}\ \si{\centi\metre}
+\end{align*}
+となる.一方で60億人の人間を一列に並べた際の長さ$L$は
+\begin{align*}
+  L=50\ \si{\centi\metre}\times6.0\times10^9=3.0\times10^{11}\ \si{\centi\metre}
+\end{align*}
+なのでニュートリノが散乱する確率は
+\begin{align*}
+\frac{L}{l}=1.793\times10^{-2}
+\end{align*}
+となる.
+\bibliography{ref.bib}
+\end{document}
