@@ -1,0 +1,56 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 宿題6}
+\author{佐々木良輔}
+\date{}
+\maketitle
+Survival Probability
+\begin{align*}
+  P(\nu_\mu\rightarrow\nu_\mu)=1-\sin^22\theta\sin^2\frac{\Delta m^2}{4E}t
+\end{align*}
+と$L=ct$から$\Delta m^2t/4E$をSi単位系に治すと
+\begin{align*}
+  \frac{\Delta m^2}{4E}t&=\frac{\Delta (mc^2)^2}{4E\hbar}\frac{L}{c}\\
+  &=\frac{1}{4\hbar c}\frac{\Delta(mc^2)^2L}{E}\\
+  &=\frac{1}{4\times 197\ (\si{MeV.fm})}\frac{1}{10^6\times10^{-15}}\frac{\Delta(mc^2)^2L\ (\si{eV.km})}{E\ (\si{GeV})}\frac{1^2\times 10^3}{10^9}\\
+  &=\frac{10^3}{4\times197}\frac{\Delta(mc^2)^2L\ (\si{eV.km})}{E\ (\si{GeV})}\\
+  &=1.27\frac{\Delta(mc^2)^2L\ (\si{eV.km})}{E\ (\si{GeV})}
+\end{align*}
+\end{document}
