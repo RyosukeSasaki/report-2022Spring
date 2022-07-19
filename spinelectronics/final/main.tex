@@ -137,9 +137,21 @@ $\rho_A$は元素Aの${\rm at\%}$あたりの残留抵抗率である.
   \end{split}
 \end{align}
 となる.実際に3元合金の残留抵抗率のMatthiessenの法則からのズレを$x$の異なる合金について測定すると図\ref{fig:fig/NiCoV.png}のようになる.
-(\ref{equ21})式において$\rho_A$, $\rho_B$は2元合金の測定から既知であった.
-したがって$\alpha_A$, $\alpha_B$は図\ref{fig:fig/NiCoV.png}を(\ref{equ21})式でFittingすることで決定できる.
-この結果について(\ref{equ2-1})式, (\ref{equ20})式を連立することで各不純物の$\rho_\uparrow$, $\rho_\downarrow$が求まる.\cite{kiso}\cite{fert_electrical_1976}
+ここで
+\begin{align}
+  a=\frac{(\alpha_A-\alpha_B)}{\alpha_B(1+\alpha_A)^2},\ b=\frac{(\alpha_A-\alpha_B)}{\alpha_A(1+\alpha_A)^2},\ X=\frac{\Delta\rho}{\rho_Bx},\ Y=\frac{\Delta\rho}{\rho_A(1-x)}
+\end{align}
+とすると(\ref{equ21})式は
+\begin{align}
+  \begin{split}
+    \frac{X}{a}+\frac{Y}{b}=1
+  \end{split}
+\end{align}
+ここで$\rho_A$, $\rho_B$は2元合金の測定から既知であったので,
+$X$-$Y$についてプロットすると切片が$a$, $b$の直線が得られる.
+これを用いることで$\alpha_A$, $\alpha_B$を決定できる.
+%したがって$\alpha_A$, $\alpha_B$は図\ref{fig:fig/NiCoV.png}を(\ref{equ21})式でFittingすることで決定できる.
+この結果についてさらに(\ref{equ2-1})式, (\ref{equ20})式を連立することで各不純物の$\rho_\uparrow$, $\rho_\downarrow$が求まる.\cite{kiso}\cite{fert_electrical_1976}
 \mfig[width=8cm]{fig/2cm_3.png}{2流体モデルでの3元素合金の抵抗率の計算}
 \mfig[width=8cm]{fig/NiCoV.png}{${\rm NiCo}_{1-x}{\rm V}_x$合金の残留抵抗率のMatthiessenの法則からのズレ\cite{fert_electrical_1976}}
 \clearpage
