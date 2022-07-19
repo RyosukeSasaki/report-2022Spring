@@ -1,0 +1,318 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+\usepackage{mathabx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{section}{#2}
+\setcounter{subsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{スピンエレクトロニクス 期末レポート}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\section*{問1}
+電子ガスモデルを考える.
+2点$\bm r'$, $\bm r'+\bm r$に同時に電子を見出す確率はスピンが平行な場合と反平行な場合でそれぞれ
+\begin{align}
+  g_{\upuparrows}({\bm r})&=1-9\left(\frac{\sin k_Fr-k_Fr\cos k_Fr}{k_F^3r^3}\right)^2\\
+  g_{\updownarrows}({\bm r})&=1
+\end{align}
+となり,これは図\ref{fig:fig/guu.tex}のような確率分布である.\cite{spinOneD6:online}\cite{3rdpdf26:online}
+これはPauliの排他率からスピンの等しい電子が近接して存在出来ないこと,
+またスピンの異なる電子はの存在確率は独立していることを示している.
+これによって各電子は同種電子が近寄れない領域を伴いながら運動しており,
+電子密度が小さくなった領域を交換正孔またはFerimi正孔と呼ぶ.
+
+ここで$\bm r'$, $\bm r'+\bm r$に存在する電子が反平行なスピンを持っていた場合,それらは接近することができるため
+原子核からの電場を互いに遮蔽する.
+一方でこれらの電子が平行なスピンを持っていた場合,交換正孔によって電子は互いに近づくことが出来ず,遮蔽効果が低下する.
+これによって電子は原子核とのCoulomb相互作用により安定化できる.
+この機構によって電子は互いにスピンを揃えるほうがエネルギーが低くなるため,強磁性が発現する.
+\gnu{$g_{\sigma\sigma'}$の分布}{fig/guu.tex}
+\clearpage
+\section*{問2}
+\subsection*{概要}
+本実験ではNi基合金について残留抵抗($0\ \si{\kelvin}$における抵抗)を測定し
+2流体モデルに基づいて解析を行うことで3元合金における不純物の
+$\uparrow$スピンと$\downarrow$スピンの残留抵抗率$\rho_{0i}\ (i=\uparrow,\downarrow)$が求められた.
+その結果は図\ref{fig:fig/rho_ud.png}のようになっており$\uparrow$スピンと$\downarrow$スピンで抵抗率が異なることがわかった.\cite{fert_electrical_1976}
+\mfig[width=8cm]{fig/rho_ud.png}{3元合金における不純物の抵抗率(□:$\rho_{0\uparrow}$, ○:$\rho_{0\downarrow}$)\cite{fert_electrical_1976}}
+\subsection*{原理}
+\subsubsection*{2流体モデル}
+散乱機構が複数ある場合の抵抗率を表す法則としてMatthiessenの法則が知られている.
+Matthiessenの法則では散乱機構1による抵抗率が$\rho_1$, 機構2による抵抗率が$\rho_2$
+であるとき,全体の抵抗率は
+\begin{align}
+  \rho=\rho_1+\rho_2
+\end{align}
+として表される.これは抵抗を直列に接続した状態と対応して考えることができる.
+
+一方で2流体モデルでは1種類の散乱機構に対して$\uparrow$スピンと$\downarrow$スピンが
+異なる抵抗率$\rho_\uparrow$, $\rho_\downarrow$を感じる場合を考える.
+これは図のように抵抗を並列に接続した状態と対応するため,抵抗率は
+\begin{align}
+  \rho=\frac{\rho_\uparrow\rho_\downarrow}{\rho_\uparrow+\rho_\downarrow}
+\end{align}
+となる.\cite{kiso}
+\mfig[width=8cm]{fig/2cm.png}{Matthiessenの法則(左), 2流体モデル(右)の模式図}
+\subsubsection*{$\rho_{\uparrow},\ \rho_{\downarrow}$の測定}
+Matthiessenの法則から2元合金${\rm NiA}_x\ (x\ /\ {\rm at\%})$の残留抵抗率は
+\begin{align}
+  \rho=\rho_0+x\rho_A
+\end{align}
+と表され,
+$x$の異なる複数の2元合金について残留抵抗率を測定することで$\rho_A$が求まる.
+ただし$\rho_0$はbulkのNiの残留抵抗率,
+$\rho_A$は元素Aの${\rm at\%}$あたりの残留抵抗率である.
+
+一方で3元素合金${\rm NiA_{1-x}B_x}$の残留抵抗率$\rho_1$をMatthiessenの法則から求めると
+\begin{align}
+  \rho_1=\rho_0+(1-x)\rho_A+x\rho_B
+\end{align}
+と表される.ただし$\rho_B$は元素Bの${\rm at\%}$あたりの残留抵抗率である.
+
+一方で2流体モデルを用いて3元素合金の残留抵抗率$\rho_2$を計算すると,
+スピン$s$の電子が元素A, Bから感じる抵抗率を$\rho_A^s$, $\rho_B^s$とすると図のような回路に対応するので
+\begin{align}
+  \rho_2=\rho_0+\frac{\left((1-x)\rho_A^\uparrow+x\rho_B^\uparrow\right)\left((1-x)\rho_A^\downarrow+x\rho_B^\downarrow\right)}
+  {(1-x)\rho_A^\uparrow+x\rho_B^\uparrow+(1-x)\rho_A^\downarrow+x\rho_B^\downarrow}
+\end{align}
+となる.ここで2流体モデルから
+\begin{align}
+  \label{equ2-1}
+  \rho_A=\frac{\rho_A^\uparrow\rho_A^\downarrow}{\rho_A^\uparrow+\rho_A^\downarrow},\ 
+  \rho_B=\frac{\rho_B^\uparrow\rho_B^\downarrow}{\rho_B^\uparrow+\rho_B^\downarrow}
+\end{align}
+また
+\begin{align}
+  \label{equ20}
+  \alpha_A=\frac{\rho_A^\downarrow}{\rho_A^\uparrow},\ 
+  \alpha_B=\frac{\rho_B^\downarrow}{\rho_B^\uparrow}
+\end{align}
+を用いてMatthiessenの法則と2流体モデルそれぞれから求めた残留抵抗率の差$\Delta\rho=\rho_2-\rho_1$を求めると
+\begin{align}
+  \begin{split}
+    \label{equ21}
+    \Delta\rho=&\frac{\left((1-x)\rho_A^\uparrow+\rho_B^\uparrow\right)\left((1-x)\rho_A^\downarrow+x\rho_B^\downarrow\right)}
+    {(1-x)\rho_A^\uparrow+x\rho_B^\uparrow+(1-x)\rho_A^\downarrow+x\rho_B^\downarrow}-\left((1-x)\rho_A+x\rho_B\right)\\
+    =&\frac{(1-x)^2\rho_A^2\frac{(1+\alpha_A)^2}{\alpha_A}+x(1-x)\rho_A\rho_B\frac{(1+\alpha_A)(1+\alpha_B)(\alpha_A+\alpha_B)}{\alpha_A\alpha_B}+x^2\rho_B^2(1+\alpha_B)^2\alpha_A}
+    {(1-x)\rho_A\frac{(1+\alpha_A)^2}{\alpha_A}+x\rho_B\frac{(1+\alpha_B)^2}{\alpha_B}}\\
+    &-\left((1-x)\rho_A+x\rho_B\right)\\
+    =&\frac{(1-x)^2\rho_A^2(1+\alpha_A)^2\alpha_B+\rho_A\rho_Bx(1-x)(1+\alpha_A)(1+\alpha_B)(\alpha_A+\alpha_B)+x^2\rho_B^2(1+\alpha_B)^2\alpha_A}{(1-x)\rho_A(1+\alpha_A)^2\alpha_B+x(\rho_B(1+\alpha_B)^2\alpha_A)}\\
+    &-\frac{(1-x)^2\rho_A^2(1+\alpha_A)^2\alpha_B+x^2\rho_B^2(1+\alpha_B)^2\alpha_A+x(1-x)\rho_A\rho_B\left((1+\alpha_A)^2\alpha_B+(1+\alpha_B)^2\alpha_A\right)}
+    {(1-x)\rho_A(1+\alpha_A)^2\alpha_B+x(\rho_B(1+\alpha_B)^2\alpha_A)}\\
+    =&\frac{(\alpha_A-\alpha_B)^2x(1-x)\rho_A\rho_B}{(1+\alpha_A)^2\alpha_B(1-x)\rho_A+(1+\alpha_B)^2\alpha_Ax\rho_B}\\
+  \end{split}
+\end{align}
+となる.実際に3元合金の残留抵抗率のMatthiessenの法則からのズレを$x$の異なる合金について測定すると図\ref{fig:fig/NiCoV.png}のようになる.
+(\ref{equ21})式において$\rho_A$, $\rho_B$は2元合金の測定から既知であった.
+したがって$\alpha_A$, $\alpha_B$は図\ref{fig:fig/NiCoV.png}を(\ref{equ21})式でFittingすることで決定できる.
+この結果について(\ref{equ2-1})式, (\ref{equ20})式を連立することで各不純物の$\rho_\uparrow$, $\rho_\downarrow$が求まる.\cite{kiso}\cite{fert_electrical_1976}
+\mfig[width=8cm]{fig/2cm_3.png}{2流体モデルでの3元素合金の抵抗率の計算}
+\mfig[width=8cm]{fig/NiCoV.png}{${\rm NiCo}_{1-x}{\rm V}_x$合金の残留抵抗率のMatthiessenの法則からのズレ\cite{fert_electrical_1976}}
+\clearpage
+\section*{問3}
+電荷は以下の連続の式を満たす.
+\begin{align}
+  \frac{\partial\rho}{\partial t}+\nabla{\bm j}=0
+\end{align}
+ここで定常状態($\partial\rho/\partial t=0$)とすると, ${\bm j}_s=\sigma_s/e\nabla\mu_s$から
+\begin{align}
+  \begin{split}
+    0&=\nabla{\bm j}\\
+    &=\nabla({\bm j}_\uparrow+{\bm j}_\downarrow)\\
+    &=\frac{1}{e}\nabla^2(\sigma_\uparrow\mu_\uparrow+\sigma_\downarrow\mu_\downarrow)
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \label{equ30}
+  \nabla^2\sigma_\uparrow\mu_\uparrow=-\nabla^2\sigma_\downarrow\mu_\downarrow
+\end{align}
+となる.
+また,角運動量連続の式は以下の通りである.
+\begin{align}
+  \label{equ31}
+  \nabla\cdot{\bm j}_\uparrow'+\frac{d\rho'}{dt}=-\frac{\delta\rho'_\uparrow}{\tau_\updownarrows}+\frac{\delta\rho'_\downarrow}{\tau_\downuparrows}\\
+  \label{equ32}
+  \nabla\cdot{\bm j}_\downarrow'+\frac{d\rho'}{dt}=-\frac{\delta\rho'_\downarrow}{\tau_\downuparrows}+\frac{\delta\rho'_\uparrow}{\tau_\updownarrows}
+\end{align}
+ここでスピン$s$の電荷の流れの式においてEinstein関係式を用いて
+\begin{align}
+  \begin{split}
+    {\bm j}_s&=\sigma_s{\bm E}+eD_s\nabla\delta n_s\\
+    &=-\sigma_s\nabla\phi+\frac{\sigma_s}{eN_s}\nabla\delta n\\
+    &=\frac{\sigma_s}{e}\nabla\left(\frac{\delta n}{N_s}-e\phi\right)=\frac{\sigma_s}{e}\nabla\mu_s
+  \end{split}
+\end{align}
+したがって$\delta\rho_s'=\hbar/2\delta n$から
+\begin{align}
+  \delta\rho_s'=\frac{\hbar}{2}N_s(\mu_s+e\phi)
+\end{align}
+また
+\begin{align}
+  {\bm j}_s'=\frac{\hbar}{2}\frac{\sigma_s\nabla\mu_s}{e^2}
+\end{align}
+を用いて(\ref{equ31})と(\ref{equ32})を定常状態($d\rho'/dt=0$)とした上で両辺引くと
+\begin{align}
+  \begin{split}
+    \nabla({\bm j}_\uparrow'-{\bm j}_\downarrow')&=-\frac{\hbar}{2e^2}\nabla^2(\sigma_\uparrow\mu_\uparrow-\sigma_\downarrow\mu_\downarrow)\\
+    &=2\left(-\frac{\delta\rho'_\uparrow}{\tau_\updownarrows}+\frac{\delta\rho'_\downarrow}{\tau_\downuparrows}\right)\\
+    &=-\frac{\hbar N_\uparrow}{\tau_\updownarrows}(\mu_\uparrow+e\phi)+\frac{\hbar N_\downarrow}{\tau_\downuparrows}(\mu_\downarrow+e\phi)
+  \end{split}
+\end{align}
+したがって
+\begin{align}
+  \label{equ33}
+  \frac{1}{2e^2}\nabla^2(\sigma_\uparrow\mu_\uparrow-\sigma_\downarrow\mu_\downarrow)&=\frac{N_\uparrow}{\tau_\updownarrows}(\mu_\uparrow+e\phi)-\frac{N_\downarrow}{\tau_\downuparrows}(\mu_\downarrow+e\phi)
+\end{align}
+ここで詳細釣り合い条件
+\begin{align}
+  \frac{N_\uparrow}{\tau_\updownarrows}=\frac{N_\downarrow}{\tau_\downuparrows}
+\end{align}
+を用いて
+\begin{align}
+  \begin{split}
+    \frac{N_\uparrow}{\tau_\updownarrows}(\mu_\uparrow+e\phi)-\frac{N_\downarrow}{\tau_\downuparrows}(\mu_\downarrow+e\phi)&=\frac{N_\uparrow}{\tau_\updownarrows}(\mu_\uparrow-\mu_\downarrow)\\
+    &=\frac{N_\downarrow}{\tau_\downuparrows}(\mu_\uparrow-\mu_\downarrow)
+  \end{split}
+\end{align}
+これと(\ref{equ30}), (\ref{equ33}), Einstein関係式から
+\begin{align}
+  \begin{split}
+    \frac{1}{e^2}\nabla^2\mu_\uparrow\sigma_\uparrow&=\frac{N_\uparrow}{\tau_\updownarrows}(\mu_\uparrow-\mu_\downarrow)\\
+    &=\frac{\sigma_\uparrow}{\tau_\updownarrows e^2D_\uparrow}(\mu_\uparrow-\mu_\downarrow)
+  \end{split}
+\end{align}
+よって
+\begin{align}
+  \label{equ34}
+  \nabla^2\mu_\uparrow=\frac{1}{\tau_\updownarrows D_\uparrow}(\mu_\uparrow-\mu_\downarrow)
+\end{align}
+同様に
+\begin{align}
+  -\nabla^2\mu_\downarrow=\frac{1}{\tau_\downuparrows D_\downarrow}(\mu_\uparrow-\mu_\downarrow)
+\end{align}
+これらを両辺足して
+\begin{align}
+  \nabla^2(\mu_\uparrow-\mu_\downarrow)=\left(\frac{1}{\tau_\updownarrows D_\uparrow}+\frac{1}{\tau_\downuparrows D_\downarrow}\right)(\mu_\uparrow-\mu_\downarrow)
+\end{align}
+となる.\cite{spinOneD10:online}\cite{topo}
+\clearpage
+\section*{問4}
+非平衡スピン密度の拡散方程式
+\begin{align}
+  \label{equ41}
+  D_0\nabla^2\delta\hat{\bm m}_i-\frac{1}{\tau_{\rm ex}}\delta\hat{\bm m}_i\times\hat{\bm n}_i-\frac{\delta\hat{\bm m_i}}{\tau_{\rm sf}}
+  =n_0\frac{\partial\hat{\bm n}_i}{\partial t}-\frac{\mu_BP}{e}({\bm j}_e\cdot\nabla)\hat{\bm n}_i
+\end{align}
+において$\nabla^2\delta\delta\hat{\bm m}_i=0$とした上で$\hat{n}_i\times$をかけると
+\begin{align}
+  -\frac{1}{\tau_{\rm ex}}\hat{\bm n}_i\times(\delta\hat{\bm m}_i\times\hat{\bm n}_i)+\frac{1}{\tau_{\rm sf}}\delta\hat{\bm m}_i\times\hat{\bm n}
+  =n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i-\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i
+\end{align}
+ここで
+\begin{align}
+  \label{equ42}
+  \hat{\bm m}_i=\hat{\bm m}_{i0}+\delta\hat{\bm m}_{in}=n_o\hat{\bm n}_i+\delta\hat{\bm m}_{in}
+\end{align}
+という定義から$\delta\hat{\bm m}_{in}$と$\hat{\bm n}$は直交している.したがって
+\begin{align}
+  \begin{split}
+    \hat{\bm n}_i\times(\delta\hat{\bm m}_i\times\hat{\bm n}_i)&=
+    (\hat{\bm n}_i\cdot\hat{\bm n}_i)\delta\hat{\bm m}_i-(\hat{\bm n}_i\cdot\delta\hat{\bm m}_i)\hat{\bm n}_i\\
+    &=\delta\hat{\bm m}_i
+  \end{split}
+\end{align}
+となる.したがって
+\begin{align}
+  -\frac{1}{\tau_{\rm ex}}\delta\hat{\bm m}_i+\xi\frac{1}{\tau_{\rm ex}}\delta\hat{\bm m}_i\times\hat{\bm n}
+  =n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i-\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i
+\end{align}
+これを(\ref{equ41})式と連立すると
+\begin{align*}
+  \begin{split}
+    -\frac{1}{\tau_{\rm ex}}\delta\hat{\bm m}_i
+    +\xi\left(-\frac{\delta\hat{\bm m}_i}{\tau_{\rm sf}}-n_0\dot{\hat{\bm n}}_i+\frac{\mu_BP}{e}({\bm j}_e\cdot\nabla)\hat{\bm n}\right)
+    =n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i-\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i\\
+  \end{split}
+\end{align*}
+\begin{align}
+  \delta\hat{\bm m}_i\left(\frac{1}{\tau_{\rm ex}}+\frac{\xi}{\tau_{\rm sf}}\right)
+    &=-\xi n_0\dot{\hat{\bm n}}_i-n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i
+    +\xi\frac{\mu_BP}{e}({\bm j}_e\cdot\nabla)\hat{\bm n}_i+\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i
+\end{align}
+ここで
+\begin{align}
+  \frac{1}{\tau_{\rm ex}}+\frac{\xi}{\tau_{\rm sf}}=\frac{1+\cfrac{\xi}{\tau_{\rm sf}}\tau_{\rm ex}}{\tau_{\rm ex}}=\frac{1+\xi^2}{\tau_{\rm ex}}
+\end{align}
+から
+\begin{align}
+  \label{equ43}
+  \delta\hat{\bm m}_i=\frac{\tau_{\rm ex}}{1+\xi^2}\left(
+    -\xi n_0\dot{\hat{\bm n}}_i-n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i
+    +\xi\frac{\mu_BP}{e}({\bm j}_e\cdot\nabla)\hat{\bm n}_i+\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i
+  \right)
+\end{align}
+となる.
+一方でsd相互作用が局所磁化に及ぼすトルクは
+\begin{align}
+  {\bm T}=-\frac{1}{\tau_{\rm ex}}\hat{\bm n}_i\times\hat{\bm m}_i
+\end{align}
+だったので(\ref{equ42})式, (\ref{equ43})式を用いると
+\begin{align}
+  \begin{split}
+    {\bm T}&=-\frac{1}{\tau_{\rm ex}}\hat{\bm n}_i\times(n_0\hat{\bm n}_i+\delta\hat{\bm m}_i)\\
+    &=-\frac{1}{\tau_{\rm ex}}\hat{\bm n}_i\times\delta\hat{\bm m}_i
+  \end{split}
+\end{align}
+ここで$\dot{\hat{\bm n}}_i\perp\hat{\bm n}_i$なので
+\begin{align}
+  \begin{split}
+    \hat{\bm n}_i\times(\hat{\bm n}_i\times\dot{\hat{\bm n}}_i)&=(\hat{\bm n}_i\cdot\dot{\hat{\bm n}}_i)\hat{\bm n}_i-(\hat{\bm n}_i\cdot\hat{\bm n}_i)\dot{\hat{\bm n}}_i\\
+    &=\dot{\hat{\bm n}}_i
+  \end{split}
+\end{align}
+より
+\begin{align}
+  {\bm T}=\frac{1}{1+\xi^2}\left(
+    \xi n_0\hat{\bm n}_i\times\dot{\hat{\bm n}}_i
+    -n_0\dot{\hat{\bm n}}_i
+    -\xi\frac{\mu_BP}{e}\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i-\frac{\mu_BP}{e}\hat{\bm n}_i\times\left(\hat{\bm n}_i\times({\bm j}_e\cdot\nabla)\hat{\bm n}_i\right)
+    \right)
+\end{align}
+となる.
+\bibliography{ref.bib}
+\end{document}
