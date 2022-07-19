@@ -1,0 +1,103 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{素粒子物理学 期末レポート}
+\author{佐々木良輔}
+\date{}
+\maketitle
+\section*{問1}
+固定標的加速器の重心系エネルギーは静止質量$m$の粒子にビームのエネルギーを$E$とすると
+\begin{align}
+  E_{CM}=\sqrt{2mE}
+\end{align}
+また陽子の質量は$m_p=938\ \si{\mega\electronvolt}$なので[1]
+\begin{align}
+  \begin{split}
+    2\times m_p&=\sqrt{2\times m_p\times E}\\
+    \therefore E&=1.88\ \si{\giga\electronvolt}
+  \end{split}
+\end{align}
+のエネルギーが必要になる.
+\section*{問2}
+\subsubsection*{(1) $e^-\rightarrow\nu_e+\gamma$}
+起こらない.電荷保存則を破っているため.
+\subsubsection*{(2) $\overline{p}+p\rightarrow n+n$}
+起こらない.反応前のバリオン数は0なのに対して反応後は2になっており,バリオン数を保存していないため.
+\subsubsection*{(3) $\mu^+\rightarrow e^++e^++e^-$}
+起こらない.反応前の第2世代のレプトン数$L_\mu$が-1なのに対して反応後は0になっており,レプトン数を保存していないため.
+\subsubsection*{(4) $\overline{\nu}_e+p\rightarrow n+e^+$}
+起こりうる(逆$\beta$崩壊)
+\subsubsection*{(5) $p\rightarrow n+e^++\nu_e$}
+起こりうる($\beta^+$崩壊)
+\section*{問3}
+$e^+$, $\mu^+$の質量が共に$\tau^+$に比べて無視できるとき,それぞれの過程の崩壊幅は
+\begin{align}
+  \Gamma(\tau^+\rightarrow\mu^+\nu_\mu\overline{\nu}_\tau)
+  =\Gamma(\tau^+\rightarrow e^+\nu_e\overline{\nu}_\tau)
+  =\frac{G_F^2m_\tau^5}{192\pi^3}=:\Gamma'
+\end{align}
+また$G_F$は
+\begin{align}
+  \begin{split}
+    \frac{G_F^2m_\mu^5}{192\pi^3}&=\frac{1}{\tau_\mu}\\
+    \therefore\ G_F^2&=\frac{192\pi^3}{\tau_\mu m_\mu^5}
+  \end{split}
+\end{align}
+と表されるので
+\begin{align}
+  \Gamma'=\frac{m_\tau^5}{\tau_\mu m_\mu^5}
+\end{align}
+一方で$\tau$の全崩壊幅は$\Gamma_\tau=1/\tau_\tau$なので分岐比は
+\begin{align}
+  \frac{\Gamma'}{\Gamma_\tau}=\frac{\tau_\tau m_\tau^5}{\tau_\mu m_\mu^5}=\frac{2.9\times10^{-13}\times1777^5}{2.2\times10^{-6}\times106^5}=0.17
+\end{align}
+したがって$17\ \%$と求まる.
+\section*{問4}
+$\Sigma^-\rightarrow ne^-\overline{\nu}_e$,
+$\Sigma^+\rightarrow ne^+\nu_e$は図\ref{fig:sigma.png}のFeynmanダイアグラムで表される.
+前者の過程においては$\Delta S=\Delta Q=1$なのに対し,後者では$\Delta S=1$, $\Delta Q=-1$であり異なっている.
+したがって後者の過程は抑制される.
+\mfig[width=14cm]{sigma.png}{$\Sigma^\pm$粒子の崩壊}
+\section*{問5 感想}
+ペースがいい感じだったので,比較的肩の力を抜いて受けられました.
+知らなかった事実を多く知れたので有意義でした.
+改善を望む点として,どこまでが演繹できる話で,どこからが実験事実なのかを明示していただけるとわかりやすくなると感じました.
+\section*{参考文献}\noindent
+[1] R.L. Workman \textit{et al.} (Particle Data Group), to be published in Prog. Theor. Exp. Phys. ${\bf 2022}$, 083C01 (2022)
+\end{document}
