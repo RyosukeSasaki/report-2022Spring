@@ -1,0 +1,94 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{問1}
+系統誤差が独立であるとしてPredctionの誤差を合成すると
+\begin{align}
+  \sqrt{0.010^2+0.015^2}\simeq0.018
+\end{align}
+同様にDataの誤差については
+\begin{align}
+  \sqrt{0.007^2+0.020^2}\simeq0.021
+\end{align}
+となる.
+\subsection*{問2}
+\begin{align}
+  f=\frac{n_{\rm up}}{n_{\rm down}}
+\end{align}
+とすると
+\begin{align}
+  \begin{split}
+    \sigma_f&=\sqrt{\left(\frac{\partial f}{\partial n_{\rm up}}\right)^2\sigma_{\rm up}^2+
+    \left(\frac{\partial f}{\partial n_{\rm down}}\right)^2\sigma_{\rm down}^2}\\
+    &=\sqrt{\left(\frac{\sigma_{\rm up}}{n_{\rm down}}\right)^2+\left(\frac{n_{\rm up}}{n_{\rm down}^2}\sigma_{\rm down}\right)^2}\\
+    &=\frac{n_{\rm up}}{n_{\rm down}}\sqrt{\left(\frac{\sigma_{\rm up}}{n_{\rm up}}\right)^2+\left(\frac{\sigma_{\rm down}}{n_{\rm down}}\right)^2}
+  \end{split}
+\end{align}
+である.ここで$n_{\rm up}$, $n_{\rm down}$がそれぞれポアソン分布に従うとすると,
+ポアソン分布の標準偏差は
+\begin{align}
+  \sigma=\sqrt{\mu}
+\end{align}
+なので
+\begin{align}
+  \sigma_{\rm up}=\sqrt{n_{\rm up}}\ \sigma_{\rm down}=\sqrt{n_{\rm down}}
+\end{align}
+したがって
+\begin{align}
+  \sigma_f&=\frac{n_{\rm up}}{n_{\rm down}}\sqrt{\frac{n_{\rm up}}{n_{\rm up}^2}+\frac{n_{\rm down}}{n_{\rm down}^2}}\\
+  &=0.54\sqrt{\frac{139}{139^2}+\frac{256}{256^2}}=0.0568
+\end{align}
+となる.
+\subsection*{問3}
+観測結果が正規分布に従うとする.
+ニュートリノ振動が無いときのUpとDownの比を1とすると観測結果は
+\begin{align}
+  \frac{1-\frac{139}{256}}{0.0568}=8.04
+\end{align}
+したがって$8.04\sigma$の有意性がある.
+\subsection*{問4}
+図では斜線の四角にMC+MC statとあり,MC法などを用いた予測値であると推測する.
+また実験データは天頂角の余弦を5分割しており,角セグメントでのデータを用いて尤度を計算するとする.
+すると全体の正規化に1自由度を要するとして,残り4自由度で推定を行ったと考えられる.
+\bibliography{ref.bib}
+\end{document}
