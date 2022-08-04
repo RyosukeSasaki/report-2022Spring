@@ -1,0 +1,98 @@
+\documentclass[uplatex,a4j,11pt,dvipdfmx]{jsarticle}
+\usepackage{listings,jvlisting}
+\bibliographystyle{junsrt}
+
+\usepackage{url}
+
+\usepackage{graphicx}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bm}
+\usepackage{siunitx}
+
+\makeatletter
+\def\fgcaption{\def\@captype{figure}\caption}
+\makeatother
+\newcommand{\setsections}[3]{
+\setcounter{section}{#1}
+\setcounter{subsection}{#2}
+\setcounter{subsubsection}{#3}
+}
+\newcommand{\mfig}[3][width=15cm]{
+\begin{center}
+\includegraphics[#1]{#2}
+\fgcaption{#3 \label{fig:#2}}
+\end{center}
+}
+\newcommand{\gnu}[2]{
+\begin{figure}[hptb]
+\begin{center}
+\input{#2}
+\caption{#1}
+\label{fig:#2}
+\end{center}
+\end{figure}
+}
+
+\begin{document}
+\title{高エネルギー物理学 期末レポート\\
+\fontsize{10pt}{20pt}\selectfont  Measurement of atmospheric neutrino oscillation parameters by Super-Kamiokande I \cite{PhysRevD.71.112005}}
+\author{61908697 佐々木良輔}
+\date{}
+\maketitle
+\subsection*{目的・何を導出したいか}
+もしニュートリノが質量を持つ場合,真空中において固有状態$\nu_\alpha\ (\alpha=e,\ \mu,\ \tau)$, エネルギー$E_\nu$のニュートリノは以下の確率$P(\nu_\alpha\rightarrow\nu_\beta)$で別の固有状態$\nu_\beta$として観測される.
+\begin{align}
+  \label{equ:oscillation}
+  P(\nu_\alpha\rightarrow\nu_\beta)=\sin^22\theta\sin^2\left(\frac{1.27\Delta m^2\cdot L}{E_\nu}\right)
+\end{align}
+ここで$\theta$は固有状態間の混合角, $\Delta m^2$は$\nu_\alpha$と$\nu_\beta$の質量差の2乗,
+$L$はニュートリノの飛行距離である.このようにニュートリノの存在確率が飛行距離と共に振動する減少はニュートリノ振動と呼ばれる.
+この実験の目的は(\ref{equ:oscillation})式のパラメータ$\theta$と$\Delta m^2$を測定することである.
+\subsection*{何を測定して求めるか}
+この実験ではSuper-Kamiokande検出器を用いて大気ニュートリノの検出イベント数の天頂角, $E_\nu$依存性を測定し,
+この結果から$\theta$と$\Delta m^2$を算出する.
+大気ニュートリノは地球大気と宇宙線の相互作用によって生じるが,
+これが検出器に至るまでの飛行距離は次節で述べるように天頂角$\Theta$に依存する.
+したがって(\ref{equ:oscillation})式からニュートリノ$\alpha$を検出する確率は飛行距離を介して天頂角に依存し変動することになる.
+特に今回の解析では$\nu_\mu\leftrightarrow\nu_\tau$での振動を考えているが,
+Super-Kamiokande検出器では$\nu_\tau$を検出しないため,
+$\nu_\mu$を観測するイベント数が天頂角に応じて減少するように見える.
+\subsection*{検出器の仕組みと概要}
+Super-Kamiokande検出器は岐阜県飛騨市の鉱山跡に建設されている.
+検出器の測定部は,$50\ \si{kt}$の水タンクと,タンクの内壁を覆うように内向きに設置された11,416個の浜松ホトニクス製 R3600光電子増倍管 (Inner Detector: ID)を含む.
+またIDの外側には外向きに設置された1885個の浜松ホトニクス製 R1408光電子増倍管 (Outer Detector: OD)が配置され,
+IDとODは光学的に遮断されている.
+これらの光電子増倍管に光が入射すると,事象が発生した時刻と検出された電荷の量が記録される.
+\subsection*{測定の概要と検出データをどのように選んで用いるか}
+ニュートリノが入射するとリング状のチェレンコフ放射が発生し,これをIDによって撮影することでニュートリノを検出する.
+ここで$\nu_\mu$と$\nu_e$を比較すると,
+$\nu_e$は娘粒子である電子が引き起こす電磁シャワーによって像がぼやけるため,撮影されたリングのぼやけ具合によって入射粒子を識別できる.\cite{kamioka:online}
+
+チェレンコフ放射は$\mu$などの宇宙線によっても起こりうるが,これはODでの検出の有無によって識別できる.
+またニュートリノはそのエネルギーによってFully contained (FC)とPartially contained (PC)に分類される.
+Fully contained事象はニュートリノの全エネルギーが検出器内で放出されるのに対して,
+Partially contained事象ではニュートリノのエネルギーが大きく, 
+IDを通過してODでも光が検出される.
+実際にはFC, PCの判定や宇宙線とニュートリノの識別は,
+ID, ODからのデータをもとにより複雑な独立した基準で判定される.
+
+以上からSuper-Kamiokandeはカロリーメーターのように粒子のエネルギーを測定すると同時に,
+像の形から入射粒子の識別も同時に行うことができる.
+\subsection*{どのように評価して結果を求めるか}
+ここではまずMonte Carlo法によるシミュレーションを行い,
+その結果を運動量,天頂角などの量でビニングされる.
+これらについて以下の式で表される$\chi^2$を最小化する$\sin^22\theta$, $\Delta m^2$が測定結果から得られる尤もらしい値となる.
+\begin{align}
+  \chi^2=\sum_{i=1}^{180}\frac{\left(N_i^{\rm obs}-N_i^{\rm exp}\left(1+\sum_{j=1}^{39}f_j^i\varepsilon_j\right)\right)^2}{\sigma_i^2}+\sum_{j=2}^{39}\left(\frac{\varepsilon_j}{\sigma_j}\right)^2
+\end{align}
+ここで$N_i^{\rm obs}$はビン$i$における実際に観測されたイベント数,
+$N_i^{\rm exp}$はシミュレーションによる予測値,
+$\sigma_i$は測定値とシミュレーションの統計不確かさ,
+$\varepsilon_j\ (j=1〜39)$は系統誤差,
+$f_j^i$は$\varepsilon_j$の変化に伴う予測値$N_i^{\rm exp}$の変化率を示す.
+以上のfittingにより求めたかったパラメータは$\sin^22\theta=1$, $\Delta m^2=2.1\times10^{-3}\ \si{\electronvolt^2}$と求まった.
+\bibliography{ref.bib}
+\end{document}
